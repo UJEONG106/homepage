@@ -337,28 +337,27 @@ class WonderlandApp {
     }
 
     jumpTo(index) {
-        if (!this.lenis || this.isScrolling) return;
+        if (!this.lenis) return;
         
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const currentProgress = this.lenis.scroll / totalHeight;
+        const currentProgress = (this.lenis.scroll / totalHeight);
         
-        // Find current card in focus
-        const currentIdx = Math.round((currentProgress % 1) * this.cards.length) % 5;
-        if (currentIdx === index) return; // Already here
-
         let targetI = -1;
+        // Search forward for the next instance of this card index
+        // Use a small epsilon to avoid 'staying' on the current card if clicking same menu
+        const epsilon = 0.001; 
+
         for (let i = 0; i < this.cards.length; i++) {
             if (this.cards[i].userData.index === index) {
                 const pos = i / this.cards.length;
-                if (pos > (currentProgress % 1)) {
+                if (pos > (currentProgress % 1) + epsilon) {
                     targetI = i;
                     break;
                 }
             }
         }
 
-        // If not found in current cycle (e.g. looking for card 1 while at card 5), 
-        // it must be at the start of the next cycle
+        // Wrap around to the first instance in the next loop if none found ahead
         if (targetI === -1) {
             for (let i = 0; i < this.cards.length; i++) {
                 if (this.cards[i].userData.index === index) {
@@ -370,19 +369,31 @@ class WonderlandApp {
 
         if (targetI !== -1) {
             const targetPos = targetI / this.cards.length;
-            let finalTarget = targetPos;
+            const cycle = Math.floor(currentProgress);
             
-            // Critical forward-only logic:
-            const cycleProgress = currentProgress % 1;
-            if (targetPos <= cycleProgress) {
-                // It's in the next cycle
-                finalTarget = Math.floor(currentProgress) + 1 + targetPos;
-            } else {
-                // It's ahead in the current cycle
-                finalTarget = Math.floor(currentProgress) + targetPos;
+            let finalTargetProgress = cycle + targetPos;
+            if (targetPos <= (currentProgress % 1) + epsilon) {
+                finalTargetProgress += 1;
             }
+
+            this.isScrolling = true;
+            this.targetMenuIndex = index; // LOCK menu highlight during jump
+            this.updateMenuHighlights(index);
+
+            this.lenis.scrollTo(finalTargetProgress * totalHeight, { 
+                duration: 2.0, 
+                easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+                onComplete: () => {
+                    this.isScrolling = false;
+                    this.targetMenuIndex = null; // UNLOCK
+                }
+            });
             
-            this.lenis.scrollTo(finalTarget * totalHeight, { duration: 1.8, easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t) });
+            // Safety unlock
+            setTimeout(() => { 
+                this.isScrolling = false; 
+                this.targetMenuIndex = null;
+            }, 2200);
         }
     }
 

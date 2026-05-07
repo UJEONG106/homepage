@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WONDERLAND | Final Cinematic Experience</title>
+    <!-- Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#050505] text-white overflow-x-hidden font-['Outfit']">
+
+    <!-- Three.js Background -->
+    <div id="canvas-container" class="fixed inset-0 z-0"></div>
+
+    <!-- UI Overlay (HUD) - Updated for daylight -->
+    <header class="fixed top-0 left-0 w-full p-6 md:p-10 flex justify-between items-center z-50 pointer-events-none">
+        <div class="text-sm md:text-2xl font-semibold tracking-[0.2em] md:tracking-[0.3em] pointer-events-auto cursor-pointer">ROBOT SOFTWARE</div>
+        <nav class="hidden md:flex gap-12 pointer-events-auto">
+            <a href="#" class="text-xs tracking-widest opacity-60 hover:opacity-100 transition-all text-slate-900">INDEX</a>
+            <a href="#" class="text-xs tracking-widest opacity-60 hover:opacity-100 transition-all text-slate-900">WORKS</a>
+            <a href="#" class="text-xs tracking-widest opacity-60 hover:opacity-100 transition-all text-slate-900">ABOUT</a>
+            <a href="#" class="text-xs tracking-widest opacity-60 hover:opacity-100 transition-all text-slate-900">CONTACT</a>
+        </nav>
+    </header>
+
+    <!-- Left Navigation Menu -->
+    <div class="fixed left-6 md:left-12 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-10 md:gap-16 pointer-events-none text-slate-900">
+        <!-- Top Info -->
+        <div class="pointer-events-auto scale-90 md:scale-100 origin-left">
+            <div class="text-[8px] md:text-[10px] font-bold tracking-widest mb-1">SCHOOL EXPERIENCE DESIGN</div>
+            <div class="text-[7px] md:text-[9px] opacity-60 tracking-wider">EST. 1994 | SEOUL DISTRICT</div>
+        </div>
+
+        <!-- Main Menu -->
+        <nav id="left-menu" class="flex flex-col gap-8 pointer-events-auto">
+            <div id="wrapper-0" class="group flex items-center gap-4">
+                <div id="m1" onclick="app.jumpTo(0)" class="menu-item flex items-center gap-3 active-pill cursor-pointer transition-all">
+                    <span class="text-[8px] font-bold border border-slate-900/20 px-2 py-0.5 rounded-full">1</span>
+                    <span class="text-xs font-bold tracking-tighter text-slate-900">학교 소개</span>
+                </div>
+                <span onclick="window.location.href='school-intro.html'" class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
+            </div>
+            
+            <div id="wrapper-1" class="group flex items-center gap-4">
+                <div id="m2" onclick="app.jumpTo(1)" class="menu-item flex items-center gap-3 opacity-60 cursor-pointer transition-all">
+                    <span class="text-[8px] font-bold border border-transparent px-2 py-0.5 rounded-full">2</span>
+                    <span class="text-xs font-bold tracking-tighter text-slate-900">학과 소개</span>
+                </div>
+                <span class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
+            </div>
+
+            <div id="wrapper-2" class="group flex items-center gap-4">
+                <div id="m3" onclick="app.jumpTo(2)" class="menu-item flex items-center gap-3 opacity-60 cursor-pointer transition-all">
+                    <span class="text-[8px] font-bold border border-transparent px-2 py-0.5 rounded-full">3</span>
+                    <span class="text-xs font-bold tracking-tighter text-slate-900">나의 포트폴리오</span>
+                </div>
+                <span onclick="window.location.href='https://myhome-nine-psi.vercel.app/'" class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
+            </div>
+
+            <div id="wrapper-3" class="group flex items-center gap-4">
+                <div id="m4" onclick="app.jumpTo(3)" class="menu-item flex items-center gap-3 opacity-60 cursor-pointer transition-all">
+                    <span class="text-[8px] font-bold border border-transparent px-2 py-0.5 rounded-full">4</span>
+                    <span class="text-xs font-bold tracking-tighter text-slate-900">관련 회사</span>
+                </div>
+                <span class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
+            </div>
+
+            <div id="wrapper-4" class="group flex items-center gap-4">
+                <div id="m5" onclick="app.jumpTo(4)" class="menu-item flex items-center gap-3 opacity-60 cursor-pointer transition-all">
+                    <span class="text-[8px] font-bold border border-transparent px-2 py-0.5 rounded-full">5</span>
+                    <span class="text-xs font-bold tracking-tighter text-slate-900">학교 생활</span>
+                </div>
+                <span onclick="window.location.href='school-life.html'" class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
+            </div>
+        </nav>
+
+        <!-- Bottom Info -->
+        <div class="pointer-events-auto flex flex-col gap-1 scale-90 md:scale-100 origin-left">
+            <div class="text-[8px] md:text-[10px] font-bold opacity-40">ANIMATION ON / <span class="opacity-100">OFF</span></div>
+            <div class="text-[9px] md:text-[10px] font-bold">SEOUL KST <span id="clock">12:34</span></div>
+        </div>
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="fixed right-10 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-6 pointer-events-none">
+        <div class="h-40 w-[1px] bg-slate-900/10 relative overflow-hidden">
+            <div id="scroll-bar" class="absolute top-0 left-0 w-full bg-sky-500 h-0 transition-all duration-100"></div>
+        </div>
+        <div id="progress-digit" class="text-[10px] tabular-nums font-light opacity-60 text-slate-900">000</div>
+    </div>
+
+    <!-- Section Labels removed as requested -->
+
+    <!-- Bottom Spacer for Loop -->
+    <main class="relative z-10">
+        <section class="h-[600vh] w-full"></section>
+    </main>
+
+    <!-- Loader -->
+    <div id="loader" class="fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center transition-all duration-1000 ease-in-out">
+        <div class="w-40 h-[1px] bg-white/10 relative overflow-hidden mb-8">
+            <div id="loader-bar" class="absolute inset-0 bg-white w-0"></div>
+        </div>
+        <div class="text-[10px] tracking-[0.6em] opacity-40 animate-pulse mb-8">INITIATING CORE</div>
+        <!-- HIGH VISIBILITY SKIP BUTTON -->
+        <button id="skip-btn" onclick="document.getElementById('loader').classList.add('loaded')" 
+            class="text-[11px] border border-white px-6 py-2 bg-white text-black hover:bg-transparent hover:text-white transition-all font-bold pointer-events-auto">
+            SKIP LOADING & ENTER
+        </button>
+    </div>
+
+    <!-- Absolute Fail-Safe: Dismiss loader after 5s regardless of JS status -->
+    <script>
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            if (loader && !loader.classList.contains('loaded')) {
+                console.log("Fail-safe: Dismissing loader automatically after timeout.");
+                loader.classList.add('loaded');
+            }
+        }, 5000);
+    </script>
+
+    <!-- Core Libraries (UMD) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.154.0/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    
+    <script src="main-v2.js"></script>
+</body>
+</html>

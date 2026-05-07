@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WONDERLAND | 학교 생활</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#f0f9ff] text-[#0f172a] font-['Outfit'] overflow-x-hidden">
+
+    <!-- Header HUD -->
+    <header class="fixed top-0 left-0 w-full p-10 flex justify-between items-center z-50">
+        <div class="text-2xl font-semibold tracking-[0.3em] cursor-pointer" onclick="window.location.href='index.html'">WONDERLAND</div>
+        <button onclick="window.location.href='index.html'" class="text-xs tracking-widest border border-[#0f172a]/20 px-6 py-2 hover:bg-[#0f172a] hover:text-white transition-all">BACK TO MENU</button>
+    </header>
+
+    <main class="pt-40 px-10 max-w-7xl mx-auto">
+        <section class="mb-20">
+            <h1 class="text-6xl font-light tracking-tighter mb-4 italic">Vibrant Campus Life.</h1>
+            <p class="text-xs tracking-[0.3em] opacity-40 uppercase">Discover the Wonderland Community</p>
+        </section>
+
+        <!-- Gallery / Life Sections -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+            <div class="glass-bg p-8 group cursor-pointer hover:bg-white/50 transition-all">
+                <div class="h-64 bg-slate-200 overflow-hidden mb-6">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+                <h3 class="text-sm font-bold mb-2">STUDENT CLUBS</h3>
+                <p class="text-[12px] opacity-60 leading-relaxed">디지털 아트부터 AI 로봇 공학까지, 다양한 분야의 동아리 활동을 통해 자신만의 프로젝트를 진행합니다.</p>
+            </div>
+            
+            <div class="glass-bg p-8 group cursor-pointer hover:bg-white/50 transition-all">
+                <div class="h-64 bg-slate-200 overflow-hidden mb-6">
+                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+                <h3 class="text-sm font-bold mb-2">CREATIVE WORKSHOP</h3>
+                <p class="text-[12px] opacity-60 leading-relaxed">매 학기 열리는 창의 워크숍에서는 현직 전문가들과 함께 실전 프로젝트를 경험할 수 있습니다.</p>
+            </div>
+
+            <div class="glass-bg p-8 group cursor-pointer hover:bg-white/50 transition-all">
+                <div class="h-64 bg-slate-200 overflow-hidden mb-6">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+                <h3 class="text-sm font-bold mb-2">GLOBAL EXCHANGE</h3>
+                <p class="text-[12px] opacity-60 leading-relaxed">전 세계 파트너 대학들과의 교류를 통해 글로벌 감각을 익히고 시야를 넓힙니다.</p>
+            </div>
+        </div>
+
+        <!-- Community Board Reminder -->
+        <div class="border-t border-slate-900/10 pt-10 mb-20">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h2 class="text-2xl font-light mb-4">커뮤니티 소식</h2>
+                    <p class="text-xs opacity-50">Firebase 기반의 실시간 게시판이 준비 중입니다.</p>
+                </div>
+                <button class="text-[10px] tracking-widest border-b border-black pb-1">게시판 바로가기</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-20 text-[10px] opacity-20 text-center uppercase tracking-widest">
+        Wonderland School Life & Community
+    </footer>
+
+</body>
+</html>

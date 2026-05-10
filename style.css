@@ -356,8 +356,9 @@ body {
     font-weight: 700;
     line-height: 1.5;
     background: linear-gradient(to right, #fff, var(--accent-color));
+    background-clip: text;
     -webkit-background-clip: text;
-    -webkit-text-color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 .location-info {
     margin-top: 4rem;
@@ -512,6 +513,23 @@ body {
     .content-container { padding: 1rem; margin-top: 4rem; }
     .back-btn { top: 1rem; left: 1rem; font-size: 0.7rem; }
     
-    .info-grid { grid-template-columns: 1fr !important; }
-    .detail-hero { height: 30vh !important; }
+    .info-grid, .dept-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+    
+    .info-card { padding: 1.5rem !important; border-radius: 16px !important; }
+    .info-num { font-size: 2.5rem !important; }
+    .info-card h3 { font-size: 1.2rem !important; }
+    
+    .dept-info-section { padding: 1.5rem !important; margin-bottom: 2rem !important; }
+    .dept-category h4 { font-size: 1rem !important; }
+    .dept-category ul { font-size: 0.8rem !important; }
+
+    .vision-box { padding: 3rem 1rem !important; margin-bottom: 2rem !important; }
+    .vision-box h2 { font-size: 1.4rem !important; }
+
+    .location-info { padding: 1.5rem !important; }
+    .location-item p { font-size: 0.9rem !important; }
+
+    .detail-hero { height: 25vh !important; margin-bottom: 2rem !important; }
+    .detail-title { font-size: 1.8rem !important; }
+    .detail-subtitle { font-size: 0.9rem !important; padding: 0 1rem !important; }
 }

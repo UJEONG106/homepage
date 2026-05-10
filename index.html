@@ -3,134 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WONDERLAND | Final Cinematic Experience</title>
-    <!-- Dependencies -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Robot Software Dept | 3D Tunnel Experience</title>
+    <meta name="description" content="Wonderland Studio 스타일의 몰입형 3D 터널 포트폴리오 사이트입니다.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
-<body class="bg-[#050505] text-white overflow-x-hidden font-['Outfit']">
+<body>
+    <!-- Scroll Proxy -->
+    <div class="scroll-proxy" id="proxy"></div>
 
-    <!-- Three.js Background -->
-    <div id="canvas-container" class="fixed inset-0 z-0"></div>
+    <nav class="gnb">
+        <a href="#" class="logo">ROBOT SOFTWARE</a>
+    </nav>
 
-    <!-- UI Overlay (HUD) - Updated for daylight -->
-    <header class="fixed top-0 left-0 w-full p-6 md:p-10 flex justify-between items-center z-50 pointer-events-none">
-        <div class="text-sm md:text-2xl font-semibold tracking-[0.2em] md:tracking-[0.3em] pointer-events-auto cursor-pointer">ROBOT SOFTWARE</div>
-        <nav class="hidden md:flex gap-12 pointer-events-auto">
-            <a href="#" class="text-xs tracking-widest opacity-60 hover:opacity-100 transition-all text-slate-900">INDEX</a>
-            <a href="#" class="text-xs tracking-widest opacity-60 hover:opacity-100 transition-all text-slate-900">WORKS</a>
-            <a href="#" class="text-xs tracking-widest opacity-60 hover:opacity-100 transition-all text-slate-900">ABOUT</a>
-            <a href="#" class="text-xs tracking-widest opacity-60 hover:opacity-100 transition-all text-slate-900">CONTACT</a>
-        </nav>
-    </header>
+    <!-- Side Vertical Menu -->
+    <div class="side-nav">
+        <div class="side-item" data-index="0">학교소개</div>
+        <div class="side-item" data-index="1">학과소개</div>
+        <div class="side-item" data-index="2">포트폴리오</div>
+        <div class="side-item" data-index="3">관련 회사</div>
+        <div class="side-item" data-index="4">학교 생활</div>
+        <div class="side-item" data-index="5">게시판</div>
+    </div>
 
-    <!-- Left Navigation Menu -->
-    <div class="fixed left-6 md:left-12 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-10 md:gap-16 pointer-events-none text-slate-900">
-        <!-- Top Info -->
-        <div class="pointer-events-auto scale-90 md:scale-100 origin-left">
-            <div class="text-[8px] md:text-[10px] font-bold tracking-widest mb-1">SCHOOL EXPERIENCE DESIGN</div>
-            <div class="text-[7px] md:text-[9px] opacity-60 tracking-wider">EST. 1994 | SEOUL DISTRICT</div>
-        </div>
+    <div id="restart-container" class="restart-view">
+        <button id="restart-btn" class="restart-button">BACK TO START</button>
+    </div>
 
-        <!-- Main Menu -->
-        <nav id="left-menu" class="flex flex-col gap-8 pointer-events-auto">
-            <div id="wrapper-0" class="group flex items-center gap-4">
-                <div id="m1" onclick="app.jumpTo(0)" class="menu-item flex items-center gap-3 active-pill cursor-pointer transition-all">
-                    <span class="text-[8px] font-bold border border-slate-900/20 px-2 py-0.5 rounded-full">1</span>
-                    <span class="text-xs font-bold tracking-tighter text-slate-900">학교 소개</span>
+    <div class="viewport">
+        <div class="scene" id="scene">
+            <!-- Cards will be positioned via JS or inline style -->
+            <div class="tunnel-card left" data-index="0" style="--z: 0px">
+                <div class="card-img-container">
+                    <img src="img/school_intro.jpg" alt="학교소개">
                 </div>
-                <span onclick="window.location.href='school-intro.html'" class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
-            </div>
-            
-            <div id="wrapper-1" class="group flex items-center gap-4">
-                <div id="m2" onclick="app.jumpTo(1)" class="menu-item flex items-center gap-3 opacity-60 cursor-pointer transition-all">
-                    <span class="text-[8px] font-bold border border-transparent px-2 py-0.5 rounded-full">2</span>
-                    <span class="text-xs font-bold tracking-tighter text-slate-900">학과 소개</span>
+                <div class="card-info">
+                    <div class="card-label">VISION 01</div>
+                    <div class="card-title">학교소개</div>
                 </div>
-                <span class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
             </div>
-
-            <div id="wrapper-2" class="group flex items-center gap-4">
-                <div id="m3" onclick="app.jumpTo(2)" class="menu-item flex items-center gap-3 opacity-60 cursor-pointer transition-all">
-                    <span class="text-[8px] font-bold border border-transparent px-2 py-0.5 rounded-full">3</span>
-                    <span class="text-xs font-bold tracking-tighter text-slate-900">나의 포트폴리오</span>
+            <div class="tunnel-card right" data-index="1" style="--z: -2500px">
+                <div class="card-img-container">
+                    <img src="img/department.jpg" alt="학과소개">
                 </div>
-                <span onclick="window.location.href='https://myhome-nine-psi.vercel.app/'" class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
-            </div>
-
-            <div id="wrapper-3" class="group flex items-center gap-4">
-                <div id="m4" onclick="app.jumpTo(3)" class="menu-item flex items-center gap-3 opacity-60 cursor-pointer transition-all">
-                    <span class="text-[8px] font-bold border border-transparent px-2 py-0.5 rounded-full">4</span>
-                    <span class="text-xs font-bold tracking-tighter text-slate-900">관련 회사</span>
+                <div class="card-info">
+                    <div class="card-label">EXPERT 02</div>
+                    <div class="card-title">학과소개</div>
                 </div>
-                <span class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
             </div>
-
-            <div id="wrapper-4" class="group flex items-center gap-4">
-                <div id="m5" onclick="app.jumpTo(4)" class="menu-item flex items-center gap-3 opacity-60 cursor-pointer transition-all">
-                    <span class="text-[8px] font-bold border border-transparent px-2 py-0.5 rounded-full">5</span>
-                    <span class="text-xs font-bold tracking-tighter text-slate-900">학교 생활</span>
+            <div class="tunnel-card left" data-index="2" style="--z: -5000px">
+                <div class="card-img-container">
+                    <img src="img/portfolio.jpg" alt="포트폴리오">
                 </div>
-                <span onclick="window.location.href='school-life.html'" class="menu-arrow opacity-0 group-hover:opacity-100 cursor-pointer text-lg translate-x-[-10px] group-hover:translate-x-0 transition-all">→</span>
+                <div class="card-info">
+                    <div class="card-label">WORKS 03</div>
+                    <div class="card-title">포트폴리오</div>
+                </div>
             </div>
-        </nav>
-
-        <!-- Bottom Info -->
-        <div class="pointer-events-auto flex flex-col gap-1 scale-90 md:scale-100 origin-left">
-            <div class="text-[8px] md:text-[10px] font-bold opacity-40">ANIMATION ON / <span class="opacity-100">OFF</span></div>
-            <div class="text-[9px] md:text-[10px] font-bold">SEOUL KST <span id="clock">12:34</span></div>
+            <div class="tunnel-card right" data-index="3" style="--z: -7500px">
+                <div class="card-img-container">
+                    <img src="img/partners.jpg" alt="관련 회사">
+                </div>
+                <div class="card-info">
+                    <div class="card-label">PARTNER 04</div>
+                    <div class="card-title">관련 회사</div>
+                </div>
+            </div>
+            <div class="tunnel-card left" data-index="4" style="--z: -10000px">
+                <div class="card-img-container">
+                    <img src="img/campus_life.jpg" alt="학교 생활">
+                </div>
+                <div class="card-info">
+                    <div class="card-label">LIFE 05</div>
+                    <div class="card-title">학교 생활</div>
+                </div>
+            </div>
+            <div class="tunnel-card right" data-index="5" style="--z: -12500px">
+                <div class="card-img-container">
+                    <img src="img/board.jpg" alt="게시판">
+                </div>
+                <div class="card-info">
+                    <div class="card-label">COMMUNITY 06</div>
+                    <div class="card-title">게시판</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Scroll Progress Indicator -->
-    <div class="fixed right-10 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-6 pointer-events-none">
-        <div class="h-40 w-[1px] bg-slate-900/10 relative overflow-hidden">
-            <div id="scroll-bar" class="absolute top-0 left-0 w-full bg-sky-500 h-0 transition-all duration-100"></div>
+    <div id="overlay" class="content-overlay">
+        <button id="close-overlay" class="back-btn">← BACK TO MAIN</button>
+        <div class="content-container" id="content-body">
+            <!-- Dynamic content injected here -->
         </div>
-        <div id="progress-digit" class="text-[10px] tabular-nums font-light opacity-60 text-slate-900">000</div>
     </div>
 
-    <!-- Section Labels removed as requested -->
+    <template id="tpl-section1">
+        <div class="section-detail">
+            <!-- Hero Header -->
+            <div class="detail-hero" style="background-image: url('img/school_intro.jpg');">
+                <div class="detail-hero-overlay"></div>
+                <div class="detail-hero-content">
+                    <span class="detail-tag">DONGYANG MIRAE UNIVERSITY</span>
+                    <h1 class="detail-title">OPENING THE FUTURE<br>PRO-TECHNOLOGIST</h1>
+                    <p class="detail-subtitle">동양미래대학교는 실용적 기술과 바른 인성을 갖춘 전문 직업인재를 양성하는 대한민국 대표 공학계열 특성화 대학입니다.</p>
+                </div>
+            </div>
 
-    <!-- Bottom Spacer for Loop -->
-    <main class="relative z-10">
-        <section class="h-[600vh] w-full"></section>
-    </main>
+            <!-- Core Values -->
+            <div class="detail-body">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-num">01</div>
+                        <h3>실용 기술</h3>
+                        <p>산업 현장에서 즉시 활용 가능한 최첨단 실습 교육과 산학 협력을 통해 최고의 실무 역량을 확보합니다.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-num">02</div>
+                        <h3>바른 인성</h3>
+                        <p>기술력뿐만 아니라 도덕적 품성과 협업 능력을 갖춘, 사회에서 신뢰받는 전문인을 지향합니다.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-num">03</div>
+                        <h3>봉사 정신</h3>
+                        <p>자신의 전문 지식을 사회와 나누며 공동체의 발전에 기여하는 나눔의 리더십을 실천합니다.</p>
+                    </div>
+                </div>
 
-    <!-- Loader -->
-    <div id="loader" class="fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center transition-all duration-1000 ease-in-out">
-        <div class="w-40 h-[1px] bg-white/10 relative overflow-hidden mb-8">
-            <div id="loader-bar" class="absolute inset-0 bg-white w-0"></div>
+                <!-- Departments List -->
+                <div class="dept-info-section">
+                    <h3 class="section-subtitle">DEPARTMENTS</h3>
+                    <div class="dept-grid">
+                        <div class="dept-category">
+                            <h4>기계공학부</h4>
+                            <ul>
+                                <li>기계공학과, 기계설계공학과</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>로봇자동화공학부</h4>
+                            <ul>
+                                <li>자동화공학과, 로봇소프트웨어과</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>전기전자통신공학부</h4>
+                            <ul>
+                                <li>전기공학과, 반도체전자공학과, 정보통신공학과, 소방안전관리과</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>컴퓨터공학부</h4>
+                            <ul>
+                                <li>웹응용소프트웨어공학과, 컴퓨터소프트웨어공학과, 인공지능소프트웨어학과</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>생활환경공학부</h4>
+                            <ul>
+                                <li>생명화학공학과, 바이오융합공학과, 건축과, 실내건축디자인과, 시각디자인과, AR·VR콘텐츠디자인과</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>경영학부</h4>
+                            <ul>
+                                <li>경영학과, 세무회계학과, 유통마케팅학과, 호텔관광학과, 경영정보학과, 빅데이터경영과</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>기타 학과</h4>
+                            <ul>
+                                <li>자유전공학과, 교양과</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision Statement -->
+                <div class="vision-box">
+                    <h2>"전문 지식과 따뜻한 인성을 겸비한<br>미래의 주역, 동양미래대학교가 함께합니다."</h2>
+                </div>
+
+                <!-- Address Section -->
+                <div class="location-info">
+                    <div class="location-item">
+                        <span class="loc-label">ADDRESS</span>
+                        <p>08221 서울특별시 구로구 경인로 445 (고척동, 동양미래대학교)</p>
+                        <p class="eng-addr">445, Gyeongin-ro, Guro-gu, Seoul, 08221, Rep. of KOREA</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="text-[10px] tracking-[0.6em] opacity-40 animate-pulse mb-8">INITIATING CORE</div>
-        <!-- HIGH VISIBILITY SKIP BUTTON -->
-        <button id="skip-btn" onclick="document.getElementById('loader').classList.add('loaded')" 
-            class="text-[11px] border border-white px-6 py-2 bg-white text-black hover:bg-transparent hover:text-white transition-all font-bold pointer-events-auto">
-            SKIP LOADING & ENTER
-        </button>
-    </div>
+    </template>
 
-    <!-- Absolute Fail-Safe: Dismiss loader after 5s regardless of JS status -->
-    <script>
-        setTimeout(() => {
-            const loader = document.getElementById('loader');
-            if (loader && !loader.classList.contains('loaded')) {
-                console.log("Fail-safe: Dismissing loader automatically after timeout.");
-                loader.classList.add('loaded');
-            }
-        }, 5000);
-    </script>
+    <template id="tpl-section2">
+        <div class="section-detail">
+            <!-- Hero Header -->
+            <div class="detail-hero" style="background-image: url('img/dept_intro.jpg');">
+                <div class="detail-hero-overlay"></div>
+                <div class="detail-hero-content">
+                    <span class="detail-tag">ROBOT SOFTWARE DEPARTMENT</span>
+                    <h1 class="detail-title">CRAFTING THE BRAINS<br>OF INTELLIGENT ROBOTS</h1>
+                    <p class="detail-subtitle">로봇소프트웨어과는 4차 산업혁명의 핵심인 지능형 로봇 분야를 이끌어갈 소프트웨어 및 제어 전문가를 양성합니다.</p>
+                </div>
+            </div>
 
-    <!-- Core Libraries (UMD) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.154.0/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
-    
-    <script src="main-v2.js"></script>
+            <!-- Department Features -->
+            <div class="detail-body">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-num">GOAL</div>
+                        <h3>교육 목표</h3>
+                        <p>3년제 전문 학사 과정을 통해 현장 중심의 프로젝트 교육을 실시하며, 로봇 소프트웨어 운용 및 유지보수 역량을 극대화합니다.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-num">PROJ</div>
+                        <h3>실무 중심 교육</h3>
+                        <p>삼성, LG, SK 등 대기업 산학 연계와 전공 동아리 활동을 통해 실전에 바로 투입 가능한 포트폴리오를 구축합니다.</p>
+                    </div>
+                </div>
+
+                <!-- Career & Certificates Grid -->
+                <div class="dept-info-section">
+                    <h3 class="section-subtitle">CAREER & CERTIFICATES</h3>
+                    <div class="dept-grid">
+                        <div class="dept-category">
+                            <h4>졸업 후 진로</h4>
+                            <ul>
+                                <li>로봇 및 자동화 엔지니어 / 로봇 소프트웨어 개발자</li>
+                                <li>지능형 설비 운용 및 기술 지원 / 스마트 팩토리 전문가</li>
+                                <li>삼성전자, LG전자, SK하이닉스 등 대기업 계열사</li>
+                                <li>로봇 스타트업 및 연구소 기술직</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>취득 자격증</h4>
+                            <ul>
+                                <li>생산자동화산업기사 / 전자계산기제어산업기사</li>
+                                <li>기계정비산업기사 / 3D프린터개발산업기사</li>
+                                <li>임베디드기사 / 정보처리기사</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Curriculum Section -->
+                <div class="dept-info-section">
+                    <h3 class="section-subtitle">CURRICULUM</h3>
+                    <div class="dept-grid">
+                        <div class="dept-category">
+                            <h4>SW 기초 (SW Basic)</h4>
+                            <ul>
+                                <li>파이썬프로그래밍, 웹프로그래밍</li>
+                                <li>모바일앱프로그래밍, 챗GPT 활용</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>로봇 제어 (Robot Control)</h4>
+                            <ul>
+                                <li>ROS프로그래밍(기초/심화), 로봇공학</li>
+                                <li>PLC프로그래밍, 모터제어, PC기반제어</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>임베디드 (Embedded Systems)</h4>
+                            <ul>
+                                <li>마이크로컨트롤러, 펌웨어프로그래밍</li>
+                                <li>로봇센서응용, 자동화통신, 디지털논리</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>AI 및 설계 (AI & Design)</h4>
+                            <ul>
+                                <li>인공지능개론, 인공지능응용</li>
+                                <li>3차원CAD, 엔지니어링기초</li>
+                            </ul>
+                        </div>
+                        <div class="dept-category">
+                            <h4>실전 프로젝트 (Project)</h4>
+                            <ul>
+                                <li>캡스톤디자인(창의과제), 현장실습</li>
+                                <li>취업및창업실무, 로봇기초실습</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision Statement -->
+                <div class="vision-box">
+                    <h2>"세상을 변화시키는 로봇 기술,<br>당신의 코드에서 시작됩니다."</h2>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-section6">
+        <h1 style="font-size: 4rem; margin-bottom: 2rem;">COMMUNITY</h1>
+        <div class="board-container" style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 20px;">
+            <div class="board-header" style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <span>실시간 게시판</span>
+                <button style="background: var(--accent-color); color: black; border: none; padding: 0.5rem 1rem; border-radius: 5px; font-weight: 700;">글쓰기</button>
+            </div>
+            <ul id="post-list" style="list-style: none;">
+                <li class="board-item" style="padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">[공지] 2024년 상반기 로봇 경진대회 예선 안내</li>
+                <li class="board-item" style="padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">오늘의 실습실 가동 시간 공지</li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="Board.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

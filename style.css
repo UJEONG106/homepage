@@ -464,10 +464,10 @@ body {
 @media (max-width: 768px) {
     .tunnel-card.left, .tunnel-card.right { --tx: 0 !important; }
     .tunnel-card { 
-        width: 280px !important; 
-        height: 400px !important; 
-        margin-left: -140px !important;
-        bottom: 15% !important; /* Push cards up from the bottom menu */
+        width: 260px !important; 
+        height: 380px !important; 
+        margin-left: -130px !important;
+        top: 40% !important; /* Move cards up to clear the bottom menu */
     }
     
     .side-nav {
@@ -477,13 +477,13 @@ body {
         top: auto !important;
         transform: none !important;
         flex-direction: row !important;
-        justify-content: flex-start !important;
-        background: rgba(0,0,0,0.8) !important;
-        padding: 1rem !important;
+        justify-content: center !important; /* Center items for better reach */
+        background: rgba(0,0,0,0.85) !important;
+        padding: 0.8rem 0 !important;
         border-radius: 0 !important;
-        backdrop-filter: blur(15px) !important;
-        gap: 1.5rem !important;
-        overflow-x: auto !important; /* Enable horizontal scroll for many items */
+        backdrop-filter: blur(20px) !important;
+        gap: 1rem !important;
+        overflow-x: auto !important;
         -webkit-overflow-scrolling: touch;
         border-top: 1px solid rgba(255,255,255,0.1);
         width: 100% !important;

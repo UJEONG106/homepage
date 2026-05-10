@@ -463,33 +463,55 @@ body {
 
 @media (max-width: 768px) {
     .tunnel-card.left, .tunnel-card.right { --tx: 0 !important; }
-    .tunnel-card { width: 300px !important; height: 450px !important; margin-left: -150px !important; }
-    
-    .side-nav {
-        left: 50% !important;
-        top: auto !important;
-        bottom: 2rem !important;
-        right: auto !important;
-        transform: translateX(-50%) !important;
-        flex-direction: row !important;
-        background: rgba(0,0,0,0.5) !important;
-        padding: 0.5rem 1.5rem !important;
-        border-radius: 50px !important;
-        backdrop-filter: blur(10px) !important;
-        gap: 1rem !important;
+    .tunnel-card { 
+        width: 280px !important; 
+        height: 400px !important; 
+        margin-left: -140px !important;
+        bottom: 15% !important; /* Push cards up from the bottom menu */
     }
     
-    .side-item { font-size: 0.6rem !important; }
+    .side-nav {
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        top: auto !important;
+        transform: none !important;
+        flex-direction: row !important;
+        justify-content: flex-start !important;
+        background: rgba(0,0,0,0.8) !important;
+        padding: 1rem !important;
+        border-radius: 0 !important;
+        backdrop-filter: blur(15px) !important;
+        gap: 1.5rem !important;
+        overflow-x: auto !important; /* Enable horizontal scroll for many items */
+        -webkit-overflow-scrolling: touch;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        width: 100% !important;
+    }
+    
+    /* Hide scrollbar but keep functionality */
+    .side-nav::-webkit-scrollbar { display: none; }
+
+    .side-item { 
+        font-size: 0.7rem !important; 
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+    
     .side-item::before { display: none !important; }
 
-    .logo { font-size: 1.2rem !important; }
-    .gnb { padding: 1.5rem !important; }
-
-    .restart-button { padding: 1rem 2rem !important; font-size: 0.8rem !important; }
+    .logo { 
+        font-size: 1rem !important; 
+        padding: 1rem !important;
+    }
     
-    .content-container { padding: 1.5rem !important; margin-top: 5rem !important; }
-    .back-btn { top: 1.5rem !important; left: 1.5rem !important; font-size: 0.8rem !important; }
+    .gnb { padding: 1rem !important; }
+
+    .restart-button { padding: 0.8rem 1.5rem !important; font-size: 0.7rem !important; }
+    
+    .content-container { padding: 1rem; margin-top: 4rem; }
+    .back-btn { top: 1rem; left: 1rem; font-size: 0.7rem; }
     
     .info-grid { grid-template-columns: 1fr !important; }
-    .detail-hero { height: 35vh !important; }
+    .detail-hero { height: 30vh !important; }
 }

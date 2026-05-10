@@ -238,9 +238,7 @@ body {
     transform: translateX(5px);
 }
 
-.side-item:hover::before {
-    width: 0.8rem;
-}
+
 
 /* Section Detail (Overlay Content) Styles */
 .section-detail {
@@ -423,4 +421,75 @@ body {
     color: var(--text-secondary);
     font-size: 0.9rem;
     line-height: 1.6;
+}
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 1200px) {
+    .tunnel-card.left { --tx: -120px !important; }
+    .tunnel-card.right { --tx: 120px !important; }
+    .tunnel-card { width: 380px !important; height: 530px !important; margin-left: -190px !important; }
+    
+    .side-nav {
+        left: auto !important;
+        right: 2rem !important;
+        top: 2rem !important;
+        transform: none !important;
+        flex-direction: row !important;
+        gap: 1.5rem !important;
+        z-index: 1000 !important;
+        background: rgba(0, 0, 0, 0.4) !important;
+        padding: 0.8rem 1.5rem !important;
+        border-radius: 30px !important;
+        backdrop-filter: blur(5px) !important;
+    }
+    
+    .side-item { font-size: 0.75rem !important; }
+    
+    .side-item::before {
+        top: auto !important;
+        bottom: -5px !important;
+        left: 0 !important;
+        width: 0 !important;
+        height: 2px !important;
+    }
+    
+    .side-item:hover::before {
+        width: 100% !important;
+    }
+
+    .detail-hero { height: 40vh !important; }
+    .detail-title { font-size: 2.5rem !important; }
+}
+
+@media (max-width: 768px) {
+    .tunnel-card.left, .tunnel-card.right { --tx: 0 !important; }
+    .tunnel-card { width: 300px !important; height: 450px !important; margin-left: -150px !important; }
+    
+    .side-nav {
+        left: 50% !important;
+        top: auto !important;
+        bottom: 2rem !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        flex-direction: row !important;
+        background: rgba(0,0,0,0.5) !important;
+        padding: 0.5rem 1.5rem !important;
+        border-radius: 50px !important;
+        backdrop-filter: blur(10px) !important;
+        gap: 1rem !important;
+    }
+    
+    .side-item { font-size: 0.6rem !important; }
+    .side-item::before { display: none !important; }
+
+    .logo { font-size: 1.2rem !important; }
+    .gnb { padding: 1.5rem !important; }
+
+    .restart-button { padding: 1rem 2rem !important; font-size: 0.8rem !important; }
+    
+    .content-container { padding: 1.5rem !important; margin-top: 5rem !important; }
+    .back-btn { top: 1.5rem !important; left: 1.5rem !important; font-size: 0.8rem !important; }
+    
+    .info-grid { grid-template-columns: 1fr !important; }
+    .detail-hero { height: 35vh !important; }
 }

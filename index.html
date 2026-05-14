@@ -11,186 +11,299 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Subject Add Modal -->
+    <div id="subject-modal" class="login-overlay hidden">
+        <div class="login-card">
+            <button class="close-modal" id="close-subject-modal">&times;</button>
+            <div class="login-header">
+                <h2 class="login-logo">ADD SUBJECT</h2>
+                <p>새로운 과목을 시간표에 등록합니다.</p>
+            </div>
+            <div class="login-form">
+                <div class="input-group">
+                    <label>SUBJECT NAME</label>
+                    <input type="text" id="sub-name" placeholder="과목명을 입력하세요">
+                </div>
+                <div class="input-row" style="display: flex; gap: 1rem;">
+                    <div class="input-group" style="flex: 1;">
+                        <label>DAY</label>
+                        <select id="sub-day" class="custom-select">
+                            <option value="MON">MON</option>
+                            <option value="TUE">TUE</option>
+                            <option value="WED">WED</option>
+                            <option value="THU">THU</option>
+                            <option value="FRI">FRI</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="flex: 1;">
+                        <label>COLOR</label>
+                        <select id="sub-color" class="custom-select">
+                            <option value="subject-1">Cyan</option>
+                            <option value="subject-2">Red</option>
+                            <option value="subject-3">Green</option>
+                            <option value="subject-4">Yellow</option>
+                            <option value="subject-5">Purple</option>
+                            <option value="subject-6">Pink</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-row" style="display: flex; gap: 1rem;">
+                    <div class="input-group" style="flex: 1;">
+                        <label>START TIME</label>
+                        <select id="sub-start" class="custom-select">
+                            <option value="2">09:00</option>
+                            <option value="3">10:00</option>
+                            <option value="4">11:00</option>
+                            <option value="5">12:00</option>
+                            <option value="6">13:00</option>
+                            <option value="7">14:00</option>
+                            <option value="8">15:00</option>
+                            <option value="9">16:00</option>
+                            <option value="10">17:00</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="flex: 1;">
+                        <label>END TIME</label>
+                        <select id="sub-end" class="custom-select">
+                            <option value="3">10:00</option>
+                            <option value="4">11:00</option>
+                            <option value="5">12:00</option>
+                            <option value="6">13:00</option>
+                            <option value="7">14:00</option>
+                            <option value="8">15:00</option>
+                            <option value="9">16:00</option>
+                            <option value="10">17:00</option>
+                            <option value="11">18:00</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer-btns" style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button id="del-sub-btn" class="main-login-btn danger hidden" style="background: #ff4757; flex: 1; margin-top: 0;">DELETE</button>
+                    <button id="add-sub-confirm" class="main-login-btn" style="flex: 2; margin-top: 0;">ADD TO SCHEDULE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-screen" class="login-overlay hidden">
+        <div class="login-card">
+            <button class="close-modal" id="close-login">&times;</button>
+            <div class="login-header">
+                <h2 class="login-logo">CAMPUS HUB</h2>
+                <p>대학 생활의 모든 것, 한 곳에서 관리하세요.</p>
+            </div>
+            <div class="login-form">
+                <div class="input-group">
+                    <label>ID</label>
+                    <input type="text" id="user-id" placeholder="아이디를 입력하세요">
+                </div>
+                <div class="input-group">
+                    <label>PASSWORD</label>
+                    <input type="password" id="user-pw" placeholder="비밀번호를 입력하세요">
+                </div>
+                <button id="login-btn" class="main-login-btn">ENTER SYSTEM</button>
+                <div class="login-footer">
+                    <span>처음이신가요?</span>
+                    <a href="#" id="signup-link">계정 생성하기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scroll Proxy -->
     <div class="scroll-proxy" id="proxy"></div>
 
     <nav class="gnb">
-        <a href="#" class="logo">ROBOT SOFTWARE</a>
+        <div class="gnb-left">
+            <a href="#" class="logo">CAMPUS HUB</a>
+        </div>
+        
+        <div class="gnb-center">
+            <div class="ticker-wrapper">
+                <div class="ticker-content">
+                    <span class="ticker-label">URGENT</span>
+                    <span id="assignment-ticker" class="ticker-text">과제가 0개 있습니다</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="gnb-right" id="auth-container">
+            <!-- Logged out state -->
+            <button id="nav-login-btn" class="nav-auth-btn">LOGIN</button>
+            
+            <!-- Logged in state (Hidden by default) -->
+            <div id="user-profile" class="user-profile hidden">
+                <div class="profile-trigger">
+                    <span id="user-display-name">User</span>
+                    <div class="profile-avatar"></div>
+                </div>
+                <div class="profile-dropdown">
+                    <div class="dropdown-header">
+                        <p class="user-id-tag" id="dropdown-user-id">@user_id</p>
+                    </div>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="go-mypage">마이페이지</a></li>
+                        <li><a href="#" id="go-settings">설정</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" id="logout-btn">로그아웃</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </nav>
 
     <!-- Side Vertical Menu -->
     <div class="side-nav">
-        <div class="side-item" data-index="0">학교소개</div>
-        <div class="side-item" data-index="1">학과소개</div>
-        <div class="side-item" data-index="2">포트폴리오</div>
-        <div class="side-item" data-index="3">관련 회사</div>
-        <div class="side-item" data-index="4">학교 생활</div>
-        <div class="side-item" data-index="5">게시판</div>
+        <div class="side-item" data-index="0">시간표</div>
+        <div class="side-item" data-index="1">학교 공지</div>
+        <div class="side-item" data-index="2">일정</div>
+        <div class="side-item" data-index="3">학점 관리</div>
     </div>
 
     <div id="restart-container" class="restart-view">
-        <button id="restart-btn" class="restart-button">BACK TO START</button>
+        <button id="restart-btn" class="restart-button">TOP</button>
     </div>
 
     <div class="viewport">
         <div class="scene" id="scene">
-            <!-- Cards will be positioned via JS or inline style -->
             <div class="tunnel-card left" data-index="0" style="--z: 0px">
                 <div class="card-img-container">
-                    <img src="img/school_intro.jpg" alt="학교소개">
+                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=2068&auto=format&fit=crop" alt="시간표">
                 </div>
                 <div class="card-info">
-                    <div class="card-label">VISION 01</div>
-                    <div class="card-title">학교소개</div>
+                    <div class="card-label">ACADEMIC</div>
+                    <div class="card-title">시간표</div>
                 </div>
             </div>
             <div class="tunnel-card right" data-index="1" style="--z: -2500px">
                 <div class="card-img-container">
-                    <img src="img/department.jpg" alt="학과소개">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop" alt="학교 공지">
                 </div>
                 <div class="card-info">
-                    <div class="card-label">EXPERT 02</div>
-                    <div class="card-title">학과소개</div>
+                    <div class="card-label">NOTICE</div>
+                    <div class="card-title">학교 공지</div>
                 </div>
             </div>
             <div class="tunnel-card left" data-index="2" style="--z: -5000px">
                 <div class="card-img-container">
-                    <img src="img/portfolio.jpg" alt="포트폴리오">
+                    <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=2072&auto=format&fit=crop" alt="일정">
                 </div>
                 <div class="card-info">
-                    <div class="card-label">WORKS 03</div>
-                    <div class="card-title">포트폴리오</div>
+                    <div class="card-label">PLANNER</div>
+                    <div class="card-title">일정</div>
                 </div>
             </div>
             <div class="tunnel-card right" data-index="3" style="--z: -7500px">
                 <div class="card-img-container">
-                    <img src="img/partners.jpg" alt="관련 회사">
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop" alt="학점 관리">
                 </div>
                 <div class="card-info">
-                    <div class="card-label">PARTNER 04</div>
-                    <div class="card-title">관련 회사</div>
-                </div>
-            </div>
-            <div class="tunnel-card left" data-index="4" style="--z: -10000px">
-                <div class="card-img-container">
-                    <img src="img/campus_life.jpg" alt="학교 생활">
-                </div>
-                <div class="card-info">
-                    <div class="card-label">LIFE 05</div>
-                    <div class="card-title">학교 생활</div>
-                </div>
-            </div>
-            <div class="tunnel-card right" data-index="5" style="--z: -12500px">
-                <div class="card-img-container">
-                    <img src="img/board.jpg" alt="게시판">
-                </div>
-                <div class="card-info">
-                    <div class="card-label">COMMUNITY 06</div>
-                    <div class="card-title">게시판</div>
+                    <div class="card-label">GRADE</div>
+                    <div class="card-title">학점 관리</div>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="overlay" class="content-overlay">
-        <button id="close-overlay" class="back-btn">← BACK TO MAIN</button>
+        <button id="close-overlay" class="back-btn">← RETURN</button>
         <div class="content-container" id="content-body">
             <!-- Dynamic content injected here -->
         </div>
     </div>
 
+    <template id="tpl-section3">
+        <div class="section-detail">
+            <div class="timetable-header">
+                <span class="detail-tag">PLANNER</span>
+                <h1 class="detail-title">일정</h1>
+            </div>
+
+            <div class="planner-container">
+                <!-- 왼쪽: 달력 -->
+                <div class="calendar-section">
+                    <div class="calendar-header">
+                        <button id="prev-month">&lt;</button>
+                        <h3 id="calendar-month-year">MAY 2024</h3>
+                        <button id="next-month">&gt;</button>
+                    </div>
+                    <div class="calendar-days">
+                        <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+                    </div>
+                    <div id="calendar-grid" class="calendar-grid">
+                        <!-- Days rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- 오른쪽: 투두리스트 (오리지널 복구) -->
+                <div class="todo-section">
+                    <div class="todo-header">
+                        <div class="todo-title-row">
+                        <h3>TODO LIST</h3>
+                        <span id="selected-date-display" class="todo-date-tag">0514</span>
+                    </div>
+                    </div>
+                    <div class="todo-input-group">
+                        <input type="text" id="todo-input" placeholder="오늘의 할 일을 입력하세요...">
+                        <button id="add-todo-btn">+</button>
+                    </div>
+                    <ul id="dynamic-todo-list" class="todo-list">
+                        <!-- Todos rendered here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <template id="tpl-section1">
         <div class="section-detail">
-            <!-- Hero Header -->
-            <div class="detail-hero" style="background-image: url('img/school_intro.jpg');">
-                <div class="detail-hero-overlay"></div>
-                <div class="detail-hero-content">
-                    <span class="detail-tag">DONGYANG MIRAE UNIVERSITY</span>
-                    <h1 class="detail-title">OPENING THE FUTURE<br>PRO-TECHNOLOGIST</h1>
-                    <p class="detail-subtitle">동양미래대학교는 실용적 기술과 바른 인성을 갖춘 전문 직업인재를 양성하는 대한민국 대표 공학계열 특성화 대학입니다.</p>
+            <div class="timetable-header">
+                <span class="detail-tag">2026</span>
+                <h1 class="detail-title">시간표</h1>
+            </div>
+
+            <!-- 요일별 요약 (Quick View) -->
+            <div class="day-summary-container">
+                <div class="section-title-flex">
+                    <h3 class="inner-subtitle">DAILY SUBJECTS</h3>
+                    <button class="add-btn-small" id="open-add-sub-1">+</button>
+                </div>
+                <div class="day-grid" id="dynamic-day-grid">
+                    <!-- Dynamic rendering: MON to FRI cards -->
+                    <div class="day-card" data-day="MON"><span class="day-label">MON</span><ul class="subject-list"></ul></div>
+                    <div class="day-card" data-day="TUE"><span class="day-label">TUE</span><ul class="subject-list"></ul></div>
+                    <div class="day-card" data-day="WED"><span class="day-label">WED</span><ul class="subject-list"></ul></div>
+                    <div class="day-card" data-day="THU"><span class="day-label">THU</span><ul class="subject-list"></ul></div>
+                    <div class="day-card" data-day="FRI"><span class="day-label">FRI</span><ul class="subject-list"></ul></div>
                 </div>
             </div>
 
-            <!-- Core Values -->
-            <div class="detail-body">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <div class="info-num">01</div>
-                        <h3>실용 기술</h3>
-                        <p>산업 현장에서 즉시 활용 가능한 최첨단 실습 교육과 산학 협력을 통해 최고의 실무 역량을 확보합니다.</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-num">02</div>
-                        <h3>바른 인성</h3>
-                        <p>기술력뿐만 아니라 도덕적 품성과 협업 능력을 갖춘, 사회에서 신뢰받는 전문인을 지향합니다.</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-num">03</div>
-                        <h3>봉사 정신</h3>
-                        <p>자신의 전문 지식을 사회와 나누며 공동체의 발전에 기여하는 나눔의 리더십을 실천합니다.</p>
-                    </div>
+            <!-- 메인 시간표 그리드 -->
+            <div class="main-timetable-view">
+                <div class="section-title-flex">
+                    <h3 class="inner-subtitle">WEEKLY SCHEDULE</h3>
+                    <button class="add-btn-small" id="open-add-sub-2">+</button>
                 </div>
-
-                <!-- Departments List -->
-                <div class="dept-info-section">
-                    <h3 class="section-subtitle">DEPARTMENTS</h3>
-                    <div class="dept-grid">
-                        <div class="dept-category">
-                            <h4>기계공학부</h4>
-                            <ul>
-                                <li>기계공학과, 기계설계공학과</li>
-                            </ul>
+                <div class="timetable-grid-wrapper">
+                    <div class="timetable-grid">
+                        <div class="time-column">
+                            <div class="time-slot"></div>
+                            <div class="time-slot">09:00</div>
+                            <div class="time-slot">10:00</div>
+                            <div class="time-slot">11:00</div>
+                            <div class="time-slot">12:00</div>
+                            <div class="time-slot">13:00</div>
+                            <div class="time-slot">14:00</div>
+                            <div class="time-slot">15:00</div>
+                            <div class="time-slot">16:00</div>
+                            <div class="time-slot">17:00</div>
                         </div>
-                        <div class="dept-category">
-                            <h4>로봇자동화공학부</h4>
-                            <ul>
-                                <li>자동화공학과, 로봇소프트웨어과</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>전기전자통신공학부</h4>
-                            <ul>
-                                <li>전기공학과, 반도체전자공학과, 정보통신공학과, 소방안전관리과</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>컴퓨터공학부</h4>
-                            <ul>
-                                <li>웹응용소프트웨어공학과, 컴퓨터소프트웨어공학과, 인공지능소프트웨어학과</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>생활환경공학부</h4>
-                            <ul>
-                                <li>생명화학공학과, 바이오융합공학과, 건축과, 실내건축디자인과, 시각디자인과, AR·VR콘텐츠디자인과</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>경영학부</h4>
-                            <ul>
-                                <li>경영학과, 세무회계학과, 유통마케팅학과, 호텔관광학과, 경영정보학과, 빅데이터경영과</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>기타 학과</h4>
-                            <ul>
-                                <li>자유전공학과, 교양과</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vision Statement -->
-                <div class="vision-box">
-                    <h2>"전문 지식과 따뜻한 인성을 겸비한<br>미래의 주역, 동양미래대학교가 함께합니다."</h2>
-                </div>
-
-                <!-- Address Section -->
-                <div class="location-info">
-                    <div class="location-item">
-                        <span class="loc-label">ADDRESS</span>
-                        <p>08221 서울특별시 구로구 경인로 445 (고척동, 동양미래대학교)</p>
-                        <p class="eng-addr">445, Gyeongin-ro, Guro-gu, Seoul, 08221, Rep. of KOREA</p>
+                        <div class="day-column" data-day="MON"><div class="day-header">MON</div></div>
+                        <div class="day-column" data-day="TUE"><div class="day-header">TUE</div></div>
+                        <div class="day-column" data-day="WED"><div class="day-header">WED</div></div>
+                        <div class="day-column" data-day="THU"><div class="day-header">THU</div></div>
+                        <div class="day-column" data-day="FRI"><div class="day-header">FRI</div></div>
                     </div>
                 </div>
             </div>
@@ -199,104 +312,98 @@
 
     <template id="tpl-section2">
         <div class="section-detail">
-            <!-- Hero Header -->
-            <div class="detail-hero" style="background-image: url('img/dept_intro.jpg');">
-                <div class="detail-hero-overlay"></div>
-                <div class="detail-hero-content">
-                    <span class="detail-tag">ROBOT SOFTWARE DEPARTMENT</span>
-                    <h1 class="detail-title">CRAFTING THE BRAINS<br>OF INTELLIGENT ROBOTS</h1>
-                    <p class="detail-subtitle">로봇소프트웨어과는 4차 산업혁명의 핵심인 지능형 로봇 분야를 이끌어갈 소프트웨어 및 제어 전문가를 양성합니다.</p>
-                </div>
+            <div class="timetable-header">
+                <span class="detail-tag">NOTICE</span>
+                <h1 class="detail-title">학교 공지</h1>
             </div>
 
-            <!-- Department Features -->
-            <div class="detail-body">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <div class="info-num">GOAL</div>
-                        <h3>교육 목표</h3>
-                        <p>3년제 전문 학사 과정을 통해 현장 중심의 프로젝트 교육을 실시하며, 로봇 소프트웨어 운용 및 유지보수 역량을 극대화합니다.</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-num">PROJ</div>
-                        <h3>실무 중심 교육</h3>
-                        <p>삼성, LG, SK 등 대기업 산학 연계와 전공 동아리 활동을 통해 실전에 바로 투입 가능한 포트폴리오를 구축합니다.</p>
-                    </div>
-                </div>
+            <!-- 공지 카테고리 탭 -->
+            <div class="notice-tabs">
+                <button class="notice-tab active" data-category="univ">학교 공지</button>
+                <button class="notice-tab" data-category="dept">학과 공지</button>
+            </div>
 
-                <!-- Career & Certificates Grid -->
-                <div class="dept-info-section">
-                    <h3 class="section-subtitle">CAREER & CERTIFICATES</h3>
-                    <div class="dept-grid">
-                        <div class="dept-category">
-                            <h4>졸업 후 진로</h4>
-                            <ul>
-                                <li>로봇 및 자동화 엔지니어 / 로봇 소프트웨어 개발자</li>
-                                <li>지능형 설비 운용 및 기술 지원 / 스마트 팩토리 전문가</li>
-                                <li>삼성전자, LG전자, SK하이닉스 등 대기업 계열사</li>
-                                <li>로봇 스타트업 및 연구소 기술직</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>취득 자격증</h4>
-                            <ul>
-                                <li>생산자동화산업기사 / 전자계산기제어산업기사</li>
-                                <li>기계정비산업기사 / 3D프린터개발산업기사</li>
-                                <li>임베디드기사 / 정보처리기사</li>
-                            </ul>
-                        </div>
-                    </div>
+            <!-- 공지사항 리스트 -->
+            <div class="notice-list-container">
+                <div class="notice-list-header">
+                    <span class="col-cat">구분</span>
+                    <span class="col-title">제목</span>
+                    <span class="col-date">날짜</span>
                 </div>
-
-                <!-- Curriculum Section -->
-                <div class="dept-info-section">
-                    <h3 class="section-subtitle">CURRICULUM</h3>
-                    <div class="dept-grid">
-                        <div class="dept-category">
-                            <h4>SW 기초 (SW Basic)</h4>
-                            <ul>
-                                <li>파이썬프로그래밍, 웹프로그래밍</li>
-                                <li>모바일앱프로그래밍, 챗GPT 활용</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>로봇 제어 (Robot Control)</h4>
-                            <ul>
-                                <li>ROS프로그래밍(기초/심화), 로봇공학</li>
-                                <li>PLC프로그래밍, 모터제어, PC기반제어</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>임베디드 (Embedded Systems)</h4>
-                            <ul>
-                                <li>마이크로컨트롤러, 펌웨어프로그래밍</li>
-                                <li>로봇센서응용, 자동화통신, 디지털논리</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>AI 및 설계 (AI & Design)</h4>
-                            <ul>
-                                <li>인공지능개론, 인공지능응용</li>
-                                <li>3차원CAD, 엔지니어링기초</li>
-                            </ul>
-                        </div>
-                        <div class="dept-category">
-                            <h4>실전 프로젝트 (Project)</h4>
-                            <ul>
-                                <li>캡스톤디자인(창의과제), 현장실습</li>
-                                <li>취업및창업실무, 로봇기초실습</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div id="dynamic-notice-list" class="notice-list">
+                    <!-- Dynamic rendering -->
                 </div>
-
-                <!-- Vision Statement -->
-                <div class="vision-box">
-                    <h2>"세상을 변화시키는 로봇 기술,<br>당신의 코드에서 시작됩니다."</h2>
+                <div class="notice-more-container">
+                    <button id="notice-more-btn" class="notice-more-btn">더보기 +</button>
                 </div>
             </div>
         </div>
     </template>
+
+    <template id="tpl-section4">
+        <div class="section-detail">
+            <div class="timetable-header">
+                <span class="detail-tag">GPA TRACKER</span>
+                <h1 class="detail-title">학점 관리</h1>
+            </div>
+
+            <div class="gpa-container">
+                <div class="gpa-dashboard">
+                    <div class="gpa-card highlight">
+                        <span class="gpa-label">전체 평균 평점</span>
+                        <div class="gpa-value-wrap">
+                            <span id="average-gpa">0.00</span>
+                            <span class="gpa-max">/ 4.5</span>
+                        </div>
+                    </div>
+                    <div class="gpa-card">
+                        <span class="gpa-label">총 취득 학점</span>
+                        <span id="total-credits" class="gpa-value">0</span>
+                    </div>
+                </div>
+
+                <div class="gpa-input-section">
+                    <h3>성적 입력</h3>
+                    <div class="gpa-form">
+                        <input type="text" id="gpa-subject" placeholder="과목명">
+                        <select id="gpa-credit">
+                            <option value="3">3학점</option>
+                            <option value="2">2학점</option>
+                            <option value="1">1학점</option>
+                            <option value="4">4학점</option>
+                        </select>
+                        <select id="gpa-grade">
+                            <option value="4.5">A+</option>
+                            <option value="4.0">A0</option>
+                            <option value="3.5">B+</option>
+                            <option value="3.0">B0</option>
+                            <option value="2.5">C+</option>
+                            <option value="2.0">C0</option>
+                            <option value="1.5">D+</option>
+                            <option value="1.0">D0</option>
+                            <option value="0">F</option>
+                        </select>
+                        <button id="add-gpa-btn">추가</button>
+                    </div>
+                </div>
+
+                <div class="gpa-list-section">
+                    <h3>성적 상세 리스트</h3>
+                    <div class="gpa-table-header">
+                        <span>과목명</span>
+                        <span>학점</span>
+                        <span>성적</span>
+                        <span>삭제</span>
+                    </div>
+                    <ul id="dynamic-gpa-list" class="gpa-list">
+                        <!-- Dynamic items -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
 
     <template id="tpl-section6">
         <h1 style="font-size: 4rem; margin-bottom: 2rem;">COMMUNITY</h1>
@@ -309,6 +416,84 @@
                 <li class="board-item" style="padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">[공지] 2024년 상반기 로봇 경진대회 예선 안내</li>
                 <li class="board-item" style="padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">오늘의 실습실 가동 시간 공지</li>
             </ul>
+        </div>
+    </template>
+
+    <!-- 마이페이지 템플릿 -->
+    <template id="tpl-mypage">
+        <div class="section-detail">
+            <div class="timetable-header">
+                <span class="detail-tag">USER PROFILE</span>
+                <h1 class="detail-title">마이페이지</h1>
+            </div>
+            
+            <div class="profile-settings-container">
+                <div class="settings-group">
+                    <h3>학생 정보 설정</h3>
+                    <div class="settings-item">
+                        <label>학과</label>
+                        <input type="text" id="my-dept" value="로봇소프트웨어과" readonly>
+                    </div>
+                    <div class="settings-item">
+                        <label>학년</label>
+                        <select id="my-grade">
+                            <option value="1">1학년</option>
+                            <option value="2">2학년</option>
+                            <option value="3">3학년</option>
+                        </select>
+                    </div>
+                    <button id="save-profile-btn" class="save-btn">정보 업데이트</button>
+                </div>
+
+                <div class="settings-group account-info">
+                    <h3>계정 정보</h3>
+                    <div class="settings-item">
+                        <label>아이디</label>
+                        <span id="display-id" class="info-value">user_id</span>
+                    </div>
+                    <div class="settings-item">
+                        <label>비밀번호</label>
+                        <div class="pw-wrap">
+                            <input type="password" id="display-pw" value="********" readonly>
+                            <button id="toggle-pw-view">보이기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 설정 템플릿 -->
+    <template id="tpl-settings">
+        <div class="section-detail">
+            <div class="timetable-header">
+                <span class="detail-tag">PREFERENCES</span>
+                <h1 class="detail-title">환경 설정</h1>
+            </div>
+
+            <div class="preferences-container">
+                <div class="pref-card">
+                    <div class="pref-info">
+                        <h3>화면 모드</h3>
+                        <p>선호하는 테마를 선택하세요.</p>
+                    </div>
+                    <div class="theme-toggle-group">
+                        <button class="theme-btn active" data-theme="dark">DARK</button>
+                        <button class="theme-btn" data-theme="light">LIGHT</button>
+                    </div>
+                </div>
+
+                <div class="pref-card">
+                    <div class="pref-info">
+                        <h3>언어 설정</h3>
+                        <p>애플리케이션의 언어를 변경합니다.</p>
+                    </div>
+                    <select id="lang-select" class="pref-select">
+                        <option value="ko">한국어 (Korean)</option>
+                        <option value="en">English (English)</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </template>
 
